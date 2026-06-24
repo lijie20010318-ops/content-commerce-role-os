@@ -1,0 +1,1426 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="data:," />
+  <title>内容电商负责人升级 Role OS Demo</title>
+  <style>
+    :root {
+      --bg: #f6f7f5;
+      --surface: #ffffff;
+      --surface-2: #eef3ef;
+      --ink: #171b20;
+      --muted: #69717c;
+      --line: #dfe4df;
+      --teal: #0f766e;
+      --teal-soft: #d8ebe7;
+      --coral: #c94f32;
+      --coral-soft: #f4dfd8;
+      --gold: #9a6a05;
+      --gold-soft: #f3e6c8;
+      --violet: #5d568f;
+      --violet-soft: #e4e1f0;
+      --shadow: 0 18px 40px rgba(27, 31, 35, 0.08);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, rgba(15, 118, 110, 0.05) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(23, 27, 32, 0.04) 1px, transparent 1px),
+        var(--bg);
+      background-size: 36px 36px;
+      font-family: "Microsoft YaHei", "PingFang SC", "Inter", system-ui, sans-serif;
+      letter-spacing: 0;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .app-shell {
+      min-height: 100vh;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px clamp(16px, 4vw, 44px);
+      background: rgba(246, 247, 245, 0.94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(14px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      color: #ffffff;
+      background: var(--ink);
+      border-radius: var(--radius);
+      flex: 0 0 auto;
+    }
+
+    .brand-title {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.2;
+      font-weight: 760;
+      white-space: nowrap;
+    }
+
+    .brand-subtitle {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.2;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 34px;
+      padding: 0 12px;
+      color: var(--teal);
+      background: var(--teal-soft);
+      border: 1px solid rgba(15, 118, 110, 0.22);
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 650;
+      white-space: nowrap;
+    }
+
+    .icon-btn,
+    .copy-btn {
+      display: inline-grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      color: var(--ink);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 6px 18px rgba(27, 31, 35, 0.06);
+    }
+
+    .copy-btn {
+      width: auto;
+      min-width: 38px;
+      padding: 0 10px;
+      gap: 6px;
+      grid-auto-flow: column;
+      color: var(--teal);
+      font-size: 13px;
+      font-weight: 680;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 242px minmax(0, 1fr);
+      gap: 24px;
+      width: min(1440px, 100%);
+      margin: 0 auto;
+      padding: 24px clamp(16px, 4vw, 44px) 56px;
+    }
+
+    .side-nav {
+      position: sticky;
+      top: 84px;
+      align-self: start;
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .nav-group {
+      display: grid;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      color: var(--muted);
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .nav-link:hover,
+    .nav-link.is-active {
+      color: var(--ink);
+      background: var(--surface-2);
+    }
+
+    .nav-note {
+      padding: 12px;
+      color: var(--muted);
+      background: #f8faf8;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    main {
+      display: grid;
+      gap: 22px;
+    }
+
+    .section {
+      padding: clamp(18px, 3vw, 28px);
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--coral);
+      font-size: 12px;
+      font-weight: 780;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.08;
+      max-width: 920px;
+    }
+
+    h2 {
+      font-size: clamp(22px, 2.2vw, 30px);
+      line-height: 1.18;
+    }
+
+    h3 {
+      font-size: 17px;
+      line-height: 1.35;
+    }
+
+    .lead {
+      max-width: 940px;
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    .quick-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .metric {
+      min-height: 108px;
+      padding: 16px;
+      background: #f9faf8;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .metric strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 26px;
+      line-height: 1;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .diagnostic-panel,
+    .result-panel {
+      display: grid;
+      gap: 16px;
+    }
+
+    .question {
+      padding: 16px;
+      background: #fbfcfb;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .question label {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--ink);
+      font-size: 14px;
+      line-height: 1.5;
+      font-weight: 730;
+    }
+
+    .segmented {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .segmented.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .segmented.four {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .chip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 8px 10px;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      font-size: 13px;
+      line-height: 1.25;
+      text-align: center;
+      user-select: none;
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    input:checked + .chip {
+      color: var(--teal);
+      background: var(--teal-soft);
+      border-color: rgba(15, 118, 110, 0.42);
+      box-shadow: inset 0 0 0 1px rgba(15, 118, 110, 0.16);
+    }
+
+    .range-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 12px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--teal);
+    }
+
+    .range-value {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 34px;
+      color: var(--teal);
+      background: var(--teal-soft);
+      border-radius: var(--radius);
+      font-weight: 760;
+    }
+
+    .result-card {
+      overflow: hidden;
+      background: var(--ink);
+      border-radius: var(--radius);
+      color: #ffffff;
+    }
+
+    .result-main {
+      padding: 22px;
+    }
+
+    .role-label {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 0 10px;
+      margin-bottom: 12px;
+      color: #101418;
+      background: #f5d777;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 780;
+    }
+
+    .result-main p {
+      margin: 12px 0 0;
+      color: rgba(255, 255, 255, 0.72);
+      line-height: 1.65;
+    }
+
+    .stage-lane {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 4px;
+      padding: 0 22px 22px;
+    }
+
+    .stage-dot {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.16);
+      border-radius: 99px;
+    }
+
+    .stage-dot.is-filled {
+      background: #f5d777;
+    }
+
+    .insight-list {
+      display: grid;
+      gap: 10px;
+      padding: 16px;
+      background: #fbfcfb;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .insight {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 10px;
+      align-items: start;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .insight svg {
+      margin-top: 2px;
+      color: var(--coral);
+    }
+
+    .track-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .tab {
+      min-height: 38px;
+      padding: 0 14px;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      font-weight: 700;
+    }
+
+    .tab.is-active {
+      color: var(--teal);
+      background: var(--teal-soft);
+      border-color: rgba(15, 118, 110, 0.36);
+    }
+
+    .map-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stage-card,
+    .task-card,
+    .road-card,
+    .script-card {
+      padding: 16px;
+      background: #fbfcfb;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .stage-card {
+      min-height: 170px;
+    }
+
+    .stage-card.is-current {
+      border-color: rgba(15, 118, 110, 0.5);
+      box-shadow: inset 0 0 0 1px rgba(15, 118, 110, 0.12);
+    }
+
+    .stage-kicker,
+    .task-kicker,
+    .road-kicker {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 780;
+      text-transform: uppercase;
+    }
+
+    .stage-card p,
+    .task-card p,
+    .road-card p,
+    .script-card p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.68;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 0 8px;
+      color: var(--gold);
+      background: var(--gold-soft);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 760;
+      white-space: nowrap;
+    }
+
+    .task-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .task-card {
+      display: grid;
+      gap: 12px;
+      min-height: 300px;
+    }
+
+    .task-meta {
+      display: grid;
+      gap: 8px;
+      padding-top: 4px;
+    }
+
+    .meta-row {
+      display: grid;
+      grid-template-columns: 86px 1fr;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .meta-row strong {
+      color: var(--ink);
+      font-weight: 740;
+    }
+
+    .task-card:nth-child(1) {
+      border-top: 4px solid var(--teal);
+    }
+
+    .task-card:nth-child(2) {
+      border-top: 4px solid var(--coral);
+    }
+
+    .task-card:nth-child(3) {
+      border-top: 4px solid var(--violet);
+    }
+
+    .radar-wrap {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .radar {
+      position: relative;
+      aspect-ratio: 1;
+      background: #f8faf8;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+    }
+
+    .radar::before,
+    .radar::after {
+      content: "";
+      position: absolute;
+      inset: 18%;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+    }
+
+    .radar::after {
+      inset: 34%;
+    }
+
+    .radar-axis {
+      position: absolute;
+      left: 50%;
+      top: 8%;
+      width: 1px;
+      height: 84%;
+      background: var(--line);
+      transform-origin: center;
+    }
+
+    .radar-axis:nth-child(2) { transform: rotate(60deg); }
+    .radar-axis:nth-child(3) { transform: rotate(120deg); }
+
+    .radar-point {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: var(--teal);
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 8px 14px rgba(15, 118, 110, 0.25);
+    }
+
+    .radar-center {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 74px;
+      height: 74px;
+      display: grid;
+      place-items: center;
+      color: #ffffff;
+      background: var(--ink);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      font-size: 13px;
+      font-weight: 780;
+      line-height: 1.25;
+    }
+
+    .bar-list {
+      display: grid;
+      gap: 13px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 116px 1fr 42px;
+      gap: 12px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 680;
+    }
+
+    .bar-track {
+      height: 10px;
+      background: #e9eee9;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: var(--teal);
+      border-radius: 99px;
+    }
+
+    .roadmap {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .road-card {
+      min-height: 206px;
+    }
+
+    .road-card:nth-child(1) .road-kicker { color: var(--teal); }
+    .road-card:nth-child(2) .road-kicker { color: var(--coral); }
+    .road-card:nth-child(3) .road-kicker { color: var(--gold); }
+    .road-card:nth-child(4) .road-kicker { color: var(--violet); }
+
+    .script-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .script-text {
+      min-height: 214px;
+      margin-top: 12px;
+      padding: 14px;
+      color: var(--ink);
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      font-size: 14px;
+      line-height: 1.78;
+      white-space: pre-wrap;
+    }
+
+    .feedback-strip {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+      margin-top: 18px;
+      padding: 16px;
+      background: var(--teal-soft);
+      border: 1px solid rgba(15, 118, 110, 0.22);
+      border-radius: var(--radius);
+    }
+
+    .feedback-strip p {
+      margin: 0;
+      color: #11544f;
+      line-height: 1.6;
+    }
+
+    .footer {
+      padding: 18px 0 4px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    @media (max-width: 1100px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .side-nav {
+        position: static;
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+
+      .side-nav::-webkit-scrollbar {
+        display: none;
+      }
+
+      .nav-group {
+        display: flex;
+        margin: 0;
+        min-width: max-content;
+      }
+
+      .nav-note {
+        display: none;
+      }
+
+      .workspace,
+      .radar-wrap {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 840px) {
+      .topbar {
+        align-items: flex-start;
+      }
+
+      .brand-subtitle,
+      .status-pill {
+        display: none;
+      }
+
+      .quick-metrics,
+      .map-grid,
+      .task-grid,
+      .roadmap,
+      .script-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-header,
+      .feedback-strip {
+        grid-template-columns: 1fr;
+        display: grid;
+      }
+
+      .segmented,
+      .segmented.two,
+      .segmented.four {
+        grid-template-columns: 1fr;
+      }
+
+      .stage-lane {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .bar-row {
+        grid-template-columns: 90px 1fr 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M4 17V7l8-4 8 4v10l-8 4-8-4Z"></path><path d="M8 9h8"></path><path d="M8 13h8"></path><path d="M8 17h5"></path></svg>
+        </div>
+        <div>
+          <p class="brand-title">内容电商负责人升级 Role OS</p>
+          <p class="brand-subtitle">角色自测 · 阶段地图 · 每日任务</p>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <span class="status-pill">V0.1 内测版</span>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="side-nav" aria-label="页面导航">
+        <nav class="nav-group">
+          <a class="nav-link is-active" href="#diagnose"><svg viewBox="0 0 24 24"><path d="M4 19V5"></path><path d="M4 19h16"></path><path d="m7 15 3-4 4 2 5-7"></path></svg>自测</a>
+          <a class="nav-link" href="#map"><svg viewBox="0 0 24 24"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 0-4 12c.8.7 1 1.4 1 2h6c0-.6.2-1.3 1-2A7 7 0 0 0 12 2Z"></path></svg>阶段</a>
+          <a class="nav-link" href="#tasks"><svg viewBox="0 0 24 24"><path d="M9 11 12 14 22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>任务</a>
+        </nav>
+        <div class="nav-note">
+          用几分钟完成自测，先看当前阶段，再选择一张明天就能执行的任务卡。
+        </div>
+      </aside>
+
+      <main>
+        <section class="section" id="diagnose">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow">Demo Entrance</p>
+              <h1>从执行者，到能带内容、直播和 AI Agent 的内容电商负责人</h1>
+              <p class="lead">完成自测后，你会得到当前阶段、三张明日任务卡、一组升级里程碑，以及可能阻碍你从执行升级为负责人的内在卡点。</p>
+            </div>
+          </div>
+
+          <div class="quick-metrics" aria-label="产品能力">
+            <div class="metric">
+              <strong>5min</strong>
+              <span>快速完成角色自测，先定位自己当前卡在哪一层。</span>
+            </div>
+            <div class="metric">
+              <strong>3</strong>
+              <span>三条路径：小红书内容、短直直播、组织与 AI 协同。</span>
+            </div>
+            <div class="metric">
+              <strong>6</strong>
+              <span>从执行者到 AI 原生组织负责人的阶段地图。</span>
+            </div>
+            <div class="metric">
+              <strong>9</strong>
+              <span>首批任务卡，直接嵌入日常工作和复盘动作。</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow">Self Check</p>
+              <h2>角色自测</h2>
+            </div>
+            <button class="copy-btn" id="resetBtn" title="重置自测">
+              <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v6h6"></path></svg>
+              重置
+            </button>
+          </div>
+
+          <div class="workspace">
+            <form class="diagnostic-panel" id="diagnosticForm">
+              <div class="question">
+                <label>你现在最接近日常工作的主战场</label>
+                <div class="segmented">
+                  <label><input type="radio" name="track" value="content" checked><span class="chip">图文/短视频</span></label>
+                  <label><input type="radio" name="track" value="live"><span class="chip">直播/短直</span></label>
+                  <label><input type="radio" name="track" value="org"><span class="chip">团队/AI协同</span></label>
+                </div>
+              </div>
+
+              <div class="question">
+                <label>你现在更像哪种角色</label>
+                <div class="segmented four">
+                  <label><input type="radio" name="role" value="1" checked><span class="chip">亲自执行</span></label>
+                  <label><input type="radio" name="role" value="2"><span class="chip">能判断好坏</span></label>
+                  <label><input type="radio" name="role" value="3"><span class="chip">能带出复刻</span></label>
+                  <label><input type="radio" name="role" value="4"><span class="chip">要管人和系统</span></label>
+                </div>
+              </div>
+
+              <div class="question">
+                <label>你当前最真实的卡点</label>
+                <div class="segmented">
+                  <label><input type="radio" name="blocker" value="judgement" checked><span class="chip">判断不稳</span></label>
+                  <label><input type="radio" name="blocker" value="repeat"><span class="chip">难以复刻</span></label>
+                  <label><input type="radio" name="blocker" value="people"><span class="chip">带人费劲</span></label>
+                </div>
+              </div>
+
+              <div class="question">
+                <label>过去 7 天，你有几天做了复盘</label>
+                <div class="range-row">
+                  <input type="range" id="reviewDays" name="reviewDays" min="0" max="7" value="3">
+                  <span class="range-value" id="reviewDaysValue">3</span>
+                </div>
+              </div>
+
+              <div class="question">
+                <label>你现在的管理负载</label>
+                <div class="segmented four">
+                  <label><input type="radio" name="load" value="0" checked><span class="chip">只管自己</span></label>
+                  <label><input type="radio" name="load" value="1"><span class="chip">带 1-2 人</span></label>
+                  <label><input type="radio" name="load" value="2"><span class="chip">带小团队</span></label>
+                  <label><input type="radio" name="load" value="3"><span class="chip">人 + AI</span></label>
+                </div>
+              </div>
+
+              <div class="question">
+                <label>结果压力来时，你最容易出现的反应</label>
+                <div class="segmented two">
+                  <label><input type="radio" name="stress" value="control" checked><span class="chip">自己扛回来</span></label>
+                  <label><input type="radio" name="stress" value="avoid"><span class="chip">等老板确认</span></label>
+                  <label><input type="radio" name="stress" value="rush"><span class="chip">急着证明对</span></label>
+                  <label><input type="radio" name="stress" value="experiment"><span class="chip">拆变量实验</span></label>
+                </div>
+              </div>
+            </form>
+
+            <div class="result-panel">
+              <div class="result-card">
+                <div class="result-main">
+                  <span class="role-label" id="roleLabel">L2 内容判断者</span>
+                  <h2 id="roleTitle">你已经不只是执行，但还需要把判断变成可复刻流程</h2>
+                  <p id="roleDescription">当前最重要的升级动作，是把“我觉得好”翻译成团队和 AI 都能执行的验收标准。</p>
+                </div>
+                <div class="stage-lane" id="stageLane" aria-label="阶段进度"></div>
+              </div>
+
+              <div class="insight-list" id="insightList"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="map">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow">Growth Map</p>
+              <h2>六段升级地图</h2>
+            </div>
+          </div>
+          <div class="map-grid" id="stageMap"></div>
+        </section>
+
+        <section class="section" id="tasks">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow">Daily Missions</p>
+              <h2>明日任务卡</h2>
+            </div>
+            <div class="track-tabs" id="taskTabs" aria-label="任务路径">
+              <button class="tab is-active" data-track="content">小红书内容</button>
+              <button class="tab" data-track="live">短直直播</button>
+              <button class="tab" data-track="org">组织与AI</button>
+            </div>
+          </div>
+          <div class="task-grid" id="taskGrid"></div>
+        </section>
+
+        <section class="section">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow">Capability Radar</p>
+              <h2>负责人能力雷达</h2>
+            </div>
+          </div>
+          <div class="radar-wrap">
+            <div class="radar" aria-label="能力雷达图">
+              <span class="radar-axis"></span>
+              <span class="radar-axis"></span>
+              <span class="radar-axis"></span>
+              <span class="radar-point" id="pointJudgement"></span>
+              <span class="radar-point" id="pointSystem"></span>
+              <span class="radar-point" id="pointPeople"></span>
+              <span class="radar-center">Role OS<br>V0.1</span>
+            </div>
+            <div class="bar-list" id="barList"></div>
+          </div>
+        </section>
+
+        <p class="footer">内容电商负责人升级 Role OS · V0.1</p>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const stages = [
+      {
+        id: 1,
+        label: "L1",
+        title: "内容执行者",
+        summary: "能完成任务，但主要依赖别人给方向和标准。",
+        focus: "先练稳定交付和素材拆解。"
+      },
+      {
+        id: 2,
+        label: "L2",
+        title: "内容判断者",
+        summary: "开始能判断内容好坏，但判断还停留在个人经验。",
+        focus: "把感觉翻译成可复用标准。"
+      },
+      {
+        id: 3,
+        label: "L3",
+        title: "爆款复刻者",
+        summary: "能从爆款里拆出可迁移变量，并带出下一批实验。",
+        focus: "从单篇成功进入批量复刻。"
+      },
+      {
+        id: 4,
+        label: "L4",
+        title: "项目负责人",
+        summary: "能组织内容、直播、投放和复盘，开始对业务结果负责。",
+        focus: "把人、流程、节奏串起来。"
+      },
+      {
+        id: 5,
+        label: "L5",
+        title: "业务负责人",
+        summary: "能围绕新客、复购、利润和长期资产设计内容电商系统。",
+        focus: "从内容结果升级到经营结果。"
+      },
+      {
+        id: 6,
+        label: "L6",
+        title: "AI 原生组织负责人",
+        summary: "能管理人和多个 AI Agent，让团队持续生成高质量判断和执行。",
+        focus: "设计组织能力，而不只是亲自下场。"
+      }
+    ];
+
+    const tasks = {
+      content: [
+        {
+          tag: "小红书",
+          title: "拆一篇已验证爆款",
+          scene: "从你们最近表现最好的一篇笔记里，拆出标题、封面、评论区、商品点击四个变量。",
+          accept: "产出一张爆款归因卡，并写出下一篇只复用一个变量的改稿方向。",
+          inner: "不要急着证明自己会写，先训练自己能说清楚为什么它能跑。"
+        },
+        {
+          tag: "评论区",
+          title: "做 20 条评论纠偏",
+          scene: "把用户评论分成想买、误解、犹豫、反感四类，再反推正文哪里没讲清楚。",
+          accept: "形成 4 类评论模板和 3 个正文修正点。",
+          inner: "被用户误解时先别防御，评论区常常是在替你指出表达漏洞。"
+        },
+        {
+          tag: "AI协同",
+          title: "把 brief 写给 AI 和新人",
+          scene: "把今天的内容需求写成一版 AI 能生成、新人能执行的 brief。",
+          accept: "brief 里必须有目标人群、核心情绪、不可写内容、验收标准。",
+          inner: "如果 AI 输出不准，先检查你是否真的知道自己要什么。"
+        }
+      ],
+      live: [
+        {
+          tag: "直播",
+          title: "30 分钟话术调试",
+          scene: "让主播开播 30 分钟，录屏后只改一个变量：语速、塑品高度、赠品节奏或信任背书。",
+          accept: "主播能稳定讲完 2 分钟核心段落，停留、点击、评论至少有一个指标改善。",
+          inner: "这张卡训练的是把人调出来，不是把人骂明白。"
+        },
+        {
+          tag: "高客单",
+          title: "把快讲改成慢讲",
+          scene: "选择一个客单较高的品，把原来 3 分钟话术拉成 12-20 分钟长讲解结构。",
+          accept: "讲清楚产品为什么贵、适合谁、怎么用、为什么现在买。",
+          inner: "高客单用户不是不想买，而是信任成本还没有被你付够。"
+        },
+        {
+          tag: "投放复盘",
+          title: "分开看首日和长周期 ROI",
+          scene: "把一场直播或专场拆成首日点击下单、长周期回流、新客占比三张表。",
+          accept: "明确下一场到底该优化流量、话术、货盘还是老客承接。",
+          inner: "不要把短期焦虑误判成长期模型失败。"
+        }
+      ],
+      org: [
+        {
+          tag: "管理",
+          title: "给一个人设计一张成长任务卡",
+          scene: "选择团队里一个人，把他的日常工作改写成任务、验收、复盘和内在卡点。",
+          accept: "这张卡明天就能执行，且不需要你全程盯着。",
+          inner: "从自己做完到别人做成，中间最难放下的是控制感。"
+        },
+        {
+          tag: "MLC",
+          title: "做一次安全感诊断",
+          scene: "看一个人没升级，是缺意愿、能力、安全感，还是学习敏捷度。",
+          accept: "给出一个降低威胁感的动作，而不是只加任务。",
+          inner: "很多人的能力卡住，不是懒，而是怕暴露自己不行。"
+        },
+        {
+          tag: "AI Agent",
+          title: "定义一个 AI Agent 的验收标准",
+          scene: "把一个重复工作交给 AI，但先写清楚它输出什么算及格。",
+          accept: "完成角色、输入、输出格式、质检标准、失败样例五件事。",
+          inner: "管理 AI 的本质，仍然是管理你的判断标准。"
+        }
+      ]
+    };
+
+    const form = document.getElementById("diagnosticForm");
+    const reviewDays = document.getElementById("reviewDays");
+    const reviewDaysValue = document.getElementById("reviewDaysValue");
+    const roleLabel = document.getElementById("roleLabel");
+    const roleTitle = document.getElementById("roleTitle");
+    const roleDescription = document.getElementById("roleDescription");
+    const stageLane = document.getElementById("stageLane");
+    const insightList = document.getElementById("insightList");
+    const stageMap = document.getElementById("stageMap");
+    const taskGrid = document.getElementById("taskGrid");
+    const taskTabs = document.getElementById("taskTabs");
+    const barList = document.getElementById("barList");
+    const resetBtn = document.getElementById("resetBtn");
+    const navLinks = Array.from(document.querySelectorAll(".nav-link"));
+    let activeTaskTrack = "content";
+
+    function getFormValue(name) {
+      const field = form.querySelector(`[name="${name}"]:checked`);
+      return field ? field.value : "";
+    }
+
+    function calculateState() {
+      const role = Number(getFormValue("role"));
+      const load = Number(getFormValue("load"));
+      const days = Number(reviewDays.value);
+      const blocker = getFormValue("blocker");
+      const stress = getFormValue("stress");
+      const track = getFormValue("track");
+      let score = role + Math.min(load, 2) + Math.floor(days / 3);
+      if (stress === "experiment") score += 1;
+      if (blocker === "people" && load >= 2) score += 1;
+      const stageId = Math.min(6, Math.max(1, score));
+
+      const judgement = Math.min(100, 25 + role * 14 + days * 4);
+      const system = Math.min(100, 18 + days * 8 + (stress === "experiment" ? 18 : 0));
+      const people = Math.min(100, 20 + load * 18 + (blocker === "people" ? 10 : 0));
+      const ai = Math.min(100, 18 + load * 12 + (track === "org" ? 24 : 0));
+
+      return { role, load, days, blocker, stress, track, stageId, judgement, system, people, ai };
+    }
+
+    function renderStageLane(stageId) {
+      stageLane.innerHTML = "";
+      stages.forEach(stage => {
+        const dot = document.createElement("span");
+        dot.className = "stage-dot" + (stage.id <= stageId ? " is-filled" : "");
+        stageLane.appendChild(dot);
+      });
+    }
+
+    function renderInsights(state) {
+      const trackCopy = {
+        content: "你现在的主线适合从内容判断入手，把爆款归因、评论纠偏和 brief 标准先练出来。",
+        live: "你现在的主线适合从直播转化入手，把话术、主播和长周期 ROI 拆成可调变量。",
+        org: "你现在的主线适合从组织协同入手，把人的任务卡和 AI Agent 的验收标准先搭起来。"
+      };
+      const blockerCopy = {
+        judgement: "卡点不是缺努力，而是判断标准还没有外化，别人和 AI 没法复用你的经验。",
+        repeat: "卡点不是没有爆款，而是爆款没有被拆成变量，所以成功还停留在运气层。",
+        people: "卡点不是别人不行，而是你还没有把任务、验收和安全感一起设计出来。"
+      };
+      const stressCopy = {
+        control: "压力下你容易亲自扛回来，短期稳，长期会让团队和 AI 都长不出来。",
+        avoid: "压力下你容易等确认，这会保护你不犯错，也会削弱你成为负责人的判断肌肉。",
+        rush: "压力下你容易急着证明自己对，下一步要练的是拆变量，而不是赢辩论。",
+        experiment: "你已经开始用实验处理压力，可以继续把这种方式沉淀成团队流程。"
+      };
+      const items = [trackCopy[state.track], blockerCopy[state.blocker], stressCopy[state.stress]];
+      insightList.innerHTML = items.map(text => `
+        <div class="insight">
+          <svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg>
+          <span>${text}</span>
+        </div>
+      `).join("");
+    }
+
+    function renderResult() {
+      const state = calculateState();
+      const stage = stages.find(item => item.id === state.stageId);
+      roleLabel.textContent = `${stage.label} ${stage.title}`;
+      roleTitle.textContent = stage.id <= 2
+        ? "你已经开始从执行进入判断，但还需要把经验变成标准"
+        : stage.id <= 4
+          ? "你正在从个人能力升级为项目系统，需要把复刻流程跑顺"
+          : "你已经进入经营和组织题，需要让人、内容和 AI 协同产出结果";
+      roleDescription.textContent = stage.focus + " " + stage.summary;
+      activeTaskTrack = state.track;
+      renderStageLane(state.stageId);
+      renderInsights(state);
+      renderStageMap(state.stageId);
+      renderTasks(activeTaskTrack);
+      renderBars(state);
+      setActiveTab(activeTaskTrack);
+      localStorage.setItem("roleOsDemo", JSON.stringify(Object.fromEntries(new FormData(form))));
+    }
+
+    function renderStageMap(currentId) {
+      stageMap.innerHTML = stages.map(stage => `
+        <article class="stage-card ${stage.id === currentId ? "is-current" : ""}">
+          <div class="stage-kicker">
+            <span>${stage.label}</span>
+            ${stage.id === currentId ? "<span class=\"badge\">当前</span>" : ""}
+          </div>
+          <h3>${stage.title}</h3>
+          <p>${stage.summary}</p>
+          <p>${stage.focus}</p>
+        </article>
+      `).join("");
+    }
+
+    function renderTasks(track) {
+      taskGrid.innerHTML = tasks[track].map(task => `
+        <article class="task-card">
+          <div>
+            <div class="task-kicker"><span>${task.tag}</span><span class="badge">明日可做</span></div>
+            <h3>${task.title}</h3>
+            <p>${task.scene}</p>
+          </div>
+          <div class="task-meta">
+            <div class="meta-row"><strong>验收</strong><span>${task.accept}</span></div>
+            <div class="meta-row"><strong>内在提醒</strong><span>${task.inner}</span></div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function setActiveTab(track) {
+      Array.from(taskTabs.querySelectorAll(".tab")).forEach(tab => {
+        tab.classList.toggle("is-active", tab.dataset.track === track);
+      });
+    }
+
+    function renderBars(state) {
+      const rows = [
+        ["内容判断", state.judgement],
+        ["复盘系统", state.system],
+        ["带人能力", state.people],
+        ["AI协同", state.ai]
+      ];
+      barList.innerHTML = rows.map(([name, value]) => `
+        <div class="bar-row">
+          <span>${name}</span>
+          <span class="bar-track"><span class="bar-fill" style="width:${value}%"></span></span>
+          <span>${value}</span>
+        </div>
+      `).join("");
+
+      positionRadarPoint("pointJudgement", 50, 10 + (100 - state.judgement) * 0.28);
+      positionRadarPoint("pointSystem", 16 + (100 - state.system) * 0.16, 68 - (100 - state.system) * 0.08);
+      positionRadarPoint("pointPeople", 84 - (100 - state.people) * 0.16, 68 - (100 - state.people) * 0.08);
+    }
+
+    function positionRadarPoint(id, left, top) {
+      const point = document.getElementById(id);
+      point.style.left = `calc(${left}% - 6px)`;
+      point.style.top = `calc(${top}% - 6px)`;
+    }
+
+    async function copyText(id) {
+      const node = document.getElementById(id);
+      const text = node.textContent.trim();
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          const textarea = document.createElement("textarea");
+          textarea.value = text;
+          textarea.setAttribute("readonly", "");
+          textarea.style.position = "fixed";
+          textarea.style.left = "-9999px";
+          textarea.style.top = "0";
+          document.body.appendChild(textarea);
+          textarea.focus();
+          textarea.select();
+          const ok = document.execCommand("copy");
+          document.body.removeChild(textarea);
+          if (!ok) throw new Error("copy command failed");
+        }
+        showToast("已复制");
+      } catch (error) {
+        showToast("复制失败，请手动选中");
+      }
+    }
+
+    let toastTimer;
+    function showToast(text) {
+      let toast = document.getElementById("toast");
+      if (!toast) {
+        toast = document.createElement("div");
+        toast.id = "toast";
+        toast.style.position = "fixed";
+        toast.style.left = "50%";
+        toast.style.bottom = "24px";
+        toast.style.transform = "translateX(-50%)";
+        toast.style.padding = "10px 14px";
+        toast.style.background = "#171b20";
+        toast.style.color = "#fff";
+        toast.style.borderRadius = "8px";
+        toast.style.boxShadow = "0 14px 30px rgba(0,0,0,.2)";
+        toast.style.zIndex = "60";
+        toast.style.fontSize = "14px";
+        document.body.appendChild(toast);
+      }
+      toast.textContent = text;
+      toast.style.opacity = "1";
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.style.opacity = "0";
+      }, 1300);
+    }
+
+    function restoreSaved() {
+      const raw = localStorage.getItem("roleOsDemo");
+      if (!raw) return;
+      try {
+        const saved = JSON.parse(raw);
+        Object.entries(saved).forEach(([name, value]) => {
+          const field = form.querySelector(`[name="${name}"][value="${value}"]`);
+          if (field) field.checked = true;
+          if (name === "reviewDays") reviewDays.value = value;
+        });
+      } catch (error) {
+        localStorage.removeItem("roleOsDemo");
+      }
+    }
+
+    form.addEventListener("input", () => {
+      reviewDaysValue.textContent = reviewDays.value;
+      renderResult();
+    });
+
+    taskTabs.addEventListener("click", event => {
+      const tab = event.target.closest(".tab");
+      if (!tab) return;
+      activeTaskTrack = tab.dataset.track;
+      setActiveTab(activeTaskTrack);
+      renderTasks(activeTaskTrack);
+    });
+
+    resetBtn.addEventListener("click", () => {
+      form.reset();
+      reviewDays.value = 3;
+      reviewDaysValue.textContent = "3";
+      localStorage.removeItem("roleOsDemo");
+      renderResult();
+    });
+
+    document.querySelectorAll("[data-copy]").forEach(button => {
+      button.addEventListener("click", () => copyText(button.dataset.copy));
+    });
+
+    document.querySelectorAll("[data-scroll]").forEach(button => {
+      button.addEventListener("click", () => {
+        document.querySelector(button.dataset.scroll).scrollIntoView({ behavior: "smooth" });
+      });
+    });
+
+    window.addEventListener("scroll", () => {
+      const sections = ["diagnose", "map", "tasks"];
+      const current = sections.findLast(id => {
+        const rect = document.getElementById(id).getBoundingClientRect();
+        return rect.top <= 120;
+      }) || "diagnose";
+      navLinks.forEach(link => {
+        link.classList.toggle("is-active", link.getAttribute("href") === `#${current}`);
+      });
+    }, { passive: true });
+
+    restoreSaved();
+    reviewDaysValue.textContent = reviewDays.value;
+    renderResult();
+  </script>
+</body>
+</html>
