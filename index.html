@@ -272,6 +272,96 @@
       line-height: 1.75;
     }
 
+    .hero-section {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(15, 118, 110, 0.12), rgba(201, 79, 50, 0.08) 48%, rgba(255, 255, 255, 0.92) 100%),
+        rgba(255, 255, 255, 0.94);
+    }
+
+    .hero-section .lead {
+      font-size: 17px;
+      color: #4d5661;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .primary-cta,
+    .secondary-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 0 15px;
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-weight: 760;
+      white-space: nowrap;
+    }
+
+    .primary-cta {
+      color: #ffffff;
+      background: var(--ink);
+      box-shadow: 0 12px 24px rgba(23, 27, 32, 0.14);
+    }
+
+    .secondary-cta {
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid var(--line);
+    }
+
+    .path-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .path-step {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(223, 228, 223, 0.92);
+      border-radius: var(--radius);
+    }
+
+    .path-number {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      color: #ffffff;
+      background: var(--teal);
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 780;
+    }
+
+    .path-step strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    .path-step span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
     .quick-metrics {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -429,7 +519,7 @@
 
     .stage-lane {
       display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 4px;
       padding: 0 22px 22px;
     }
@@ -508,7 +598,7 @@
     }
 
     .stage-card {
-      min-height: 170px;
+      min-height: 260px;
     }
 
     .stage-card.is-current {
@@ -540,6 +630,28 @@
       line-height: 1.68;
     }
 
+    .stage-requirements {
+      display: grid;
+      gap: 8px;
+      margin-top: 13px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+    }
+
+    .requirement-row {
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .requirement-row strong {
+      color: var(--ink);
+      font-weight: 740;
+    }
+
     .badge {
       display: inline-flex;
       align-items: center;
@@ -562,7 +674,7 @@
     .task-card {
       display: grid;
       gap: 12px;
-      min-height: 300px;
+      min-height: 410px;
     }
 
     .task-meta {
@@ -573,7 +685,7 @@
 
     .meta-row {
       display: grid;
-      grid-template-columns: 86px 1fr;
+      grid-template-columns: 76px 1fr;
       gap: 10px;
       color: var(--muted);
       font-size: 13px;
@@ -807,6 +919,7 @@
       }
 
       .quick-metrics,
+      .path-grid,
       .map-grid,
       .task-grid,
       .roadmap,
@@ -845,61 +958,112 @@
         </div>
         <div>
           <p class="brand-title">内容电商负责人升级 Role OS</p>
-          <p class="brand-subtitle">角色自测 · 阶段地图 · 每日任务</p>
+          <p class="brand-subtitle">本月任务卡 · 阶段校准 · 升级要求</p>
         </div>
       </div>
       <div class="topbar-actions">
-        <span class="status-pill">V0.1 内测版</span>
+        <span class="status-pill">V0.3.1 呈现修正版</span>
       </div>
     </header>
 
     <div class="layout">
       <aside class="side-nav" aria-label="页面导航">
         <nav class="nav-group">
-          <a class="nav-link is-active" href="#diagnose"><svg viewBox="0 0 24 24"><path d="M4 19V5"></path><path d="M4 19h16"></path><path d="m7 15 3-4 4 2 5-7"></path></svg>自测</a>
+          <a class="nav-link is-active" href="#tasks"><svg viewBox="0 0 24 24"><path d="M9 11 12 14 22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>任务</a>
+          <a class="nav-link" href="#selfcheck"><svg viewBox="0 0 24 24"><path d="M4 19V5"></path><path d="M4 19h16"></path><path d="m7 15 3-4 4 2 5-7"></path></svg>自测</a>
           <a class="nav-link" href="#map"><svg viewBox="0 0 24 24"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 0-4 12c.8.7 1 1.4 1 2h6c0-.6.2-1.3 1-2A7 7 0 0 0 12 2Z"></path></svg>阶段</a>
-          <a class="nav-link" href="#tasks"><svg viewBox="0 0 24 24"><path d="M9 11 12 14 22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>任务</a>
         </nav>
         <div class="nav-note">
-          用几分钟完成自测，先看当前阶段，再选择一张明天就能执行的任务卡。
+          首页先看任务卡。阶段自测每月开放一次，用来校准当前位置，定位结果放在任务卡下面。
         </div>
       </aside>
 
       <main>
-        <section class="section" id="diagnose">
+        <section class="section hero-section" id="diagnose">
           <div class="section-header">
             <div>
-              <p class="eyebrow">Demo Entrance</p>
-              <h1>从执行者，到能带内容、直播和 AI Agent 的内容电商负责人</h1>
-              <p class="lead">完成自测后，你会得到当前阶段、三张明日任务卡、一组升级里程碑，以及可能阻碍你从执行升级为负责人的内在卡点。</p>
+              <p class="eyebrow">Role OS v0.3.1</p>
+              <h1>不是一份问卷，是一套内容电商负责人升级系统</h1>
+              <p class="lead">它帮你从内容电商的小白、执行者、老手，一路看清本月最该练哪张任务卡。阶段自测每个月开放一次，测完后定位结果放在任务卡下面，作为校准而不是反复刷题。</p>
+              <div class="hero-actions">
+                <a class="primary-cta" href="#tasks">
+                  <svg viewBox="0 0 24 24"><path d="M9 11 12 14 22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                  先看本月任务卡
+                </a>
+                <a class="secondary-cta" href="#selfcheck">
+                  <svg viewBox="0 0 24 24"><path d="M8 6h13"></path><path d="M8 12h13"></path><path d="M8 18h13"></path><path d="M3 6h.01"></path><path d="M3 12h.01"></path><path d="M3 18h.01"></path></svg>
+                  本月阶段自测
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="path-grid" aria-label="使用路径">
+            <div class="path-step">
+              <span class="path-number">1</span>
+              <div>
+                <strong>先拿任务卡</strong>
+                <span>首页优先呈现本月可以执行的任务卡，先行动，再校准。</span>
+              </div>
+            </div>
+            <div class="path-step">
+              <span class="path-number">2</span>
+              <div>
+                <strong>每月做一次自测</strong>
+                <span>阶段自测每个月开放一次，用来更新你当前的负责人水位。</span>
+              </div>
+            </div>
+            <div class="path-step">
+              <span class="path-number">3</span>
+              <div>
+                <strong>往下看定位</strong>
+                <span>自测完成后，再看定位结果、阶段地图和下一层升级要求。</span>
+              </div>
             </div>
           </div>
 
           <div class="quick-metrics" aria-label="产品能力">
             <div class="metric">
-              <strong>5min</strong>
-              <span>快速完成角色自测，先定位自己当前卡在哪一层。</span>
+              <strong>1次/月</strong>
+              <span>阶段自测每个月开放一次，避免把成长系统用成刷题系统。</span>
             </div>
             <div class="metric">
               <strong>3</strong>
-              <span>三条路径：小红书内容、短直直播、组织与 AI 协同。</span>
+              <span>三条真实业务线：小红书内容、短直直播、组织与 AI 协同。</span>
             </div>
             <div class="metric">
-              <strong>6</strong>
-              <span>从执行者到 AI 原生组织负责人的阶段地图。</span>
+              <strong>5</strong>
+              <span>五个成长阶段，统一按 L1-L5 呈现每一层升级要求。</span>
             </div>
             <div class="metric">
               <strong>9</strong>
-              <span>首批任务卡，直接嵌入日常工作和复盘动作。</span>
+              <span>首批本月任务卡，把练能力变成可交付的工作动作。</span>
             </div>
           </div>
         </section>
 
-        <section class="section">
+        <section class="section" id="tasks">
           <div class="section-header">
             <div>
-              <p class="eyebrow">Self Check</p>
-              <h2>角色自测</h2>
+              <p class="eyebrow">Monthly Missions</p>
+              <h2>本月任务卡</h2>
+              <p class="lead">测试完成后，首页优先放任务卡。你不用反复确认自己在哪一层，先从一张真实工作卡开始练。</p>
+            </div>
+            <div class="track-tabs" id="taskTabs" aria-label="任务路径">
+              <button class="tab is-active" data-track="content">小红书内容</button>
+              <button class="tab" data-track="live">短直直播</button>
+              <button class="tab" data-track="org">组织与AI</button>
+            </div>
+          </div>
+          <div class="task-grid" id="taskGrid"></div>
+        </section>
+
+        <section class="section" id="selfcheck">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow">Monthly Self Check</p>
+              <h2>本月阶段自测</h2>
+              <p class="lead">阶段自测每个月开放一次测试机会。它的作用是校准你当前的位置，测完后先回到上面的任务卡行动。</p>
             </div>
             <button class="copy-btn" id="resetBtn" title="重置自测">
               <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v6h6"></path></svg>
@@ -969,9 +1133,9 @@
             <div class="result-panel">
               <div class="result-card">
                 <div class="result-main">
-                  <span class="role-label" id="roleLabel">L2 内容判断者</span>
-                  <h2 id="roleTitle">你已经不只是执行，但还需要把判断变成可复刻流程</h2>
-                  <p id="roleDescription">当前最重要的升级动作，是把“我觉得好”翻译成团队和 AI 都能执行的验收标准。</p>
+                  <span class="role-label" id="roleLabel">L2 内容判断与复刻者</span>
+                  <h2 id="roleTitle">你正在从会执行，升级到能判断、能复刻</h2>
+                  <p id="roleDescription">当前最重要的升级动作，是把“我觉得好”翻译成团队和 AI 都能执行、能复用的标准。</p>
                 </div>
                 <div class="stage-lane" id="stageLane" aria-label="阶段进度"></div>
               </div>
@@ -985,25 +1149,11 @@
           <div class="section-header">
             <div>
               <p class="eyebrow">Growth Map</p>
-              <h2>六段升级地图</h2>
+              <h2>阶段升级地图</h2>
+              <p class="lead">L1-L5 对应五种真实工作状态。重点不是你叫什么级别，而是下一层到底要求你能稳定做成什么。</p>
             </div>
           </div>
           <div class="map-grid" id="stageMap"></div>
-        </section>
-
-        <section class="section" id="tasks">
-          <div class="section-header">
-            <div>
-              <p class="eyebrow">Daily Missions</p>
-              <h2>明日任务卡</h2>
-            </div>
-            <div class="track-tabs" id="taskTabs" aria-label="任务路径">
-              <button class="tab is-active" data-track="content">小红书内容</button>
-              <button class="tab" data-track="live">短直直播</button>
-              <button class="tab" data-track="org">组织与AI</button>
-            </div>
-          </div>
-          <div class="task-grid" id="taskGrid"></div>
         </section>
 
         <section class="section">
@@ -1011,6 +1161,7 @@
             <div>
               <p class="eyebrow">Capability Radar</p>
               <h2>负责人能力雷达</h2>
+              <p class="lead">雷达不是分数排名，而是提醒你：内容判断、复盘系统、带人能力和 AI 协同，哪一块最需要先补。</p>
             </div>
           </div>
           <div class="radar-wrap">
@@ -1021,13 +1172,13 @@
               <span class="radar-point" id="pointJudgement"></span>
               <span class="radar-point" id="pointSystem"></span>
               <span class="radar-point" id="pointPeople"></span>
-              <span class="radar-center">Role OS<br>V0.1</span>
+              <span class="radar-center">Role OS<br>V0.3.1</span>
             </div>
             <div class="bar-list" id="barList"></div>
           </div>
         </section>
 
-        <p class="footer">内容电商负责人升级 Role OS · V0.1</p>
+        <p class="footer">内容电商负责人升级 Role OS · V0.3.1</p>
       </main>
     </div>
   </div>
@@ -1039,42 +1190,50 @@
         label: "L1",
         title: "内容执行者",
         summary: "能完成任务，但主要依赖别人给方向和标准。",
-        focus: "先练稳定交付和素材拆解。"
+        focus: "先练稳定交付和素材拆解。",
+        signal: "接到选题、脚本或直播动作后能做完，但还说不清为什么这样做。",
+        standard: "能按时交付，并把一条内容拆成选题、标题、素材、卖点和结果。",
+        practice: "每天拆 1 条同行内容，写出 3 个可复用变量。"
       },
       {
         id: 2,
         label: "L2",
-        title: "内容判断者",
-        summary: "开始能判断内容好坏，但判断还停留在个人经验。",
-        focus: "把感觉翻译成可复用标准。"
+        title: "内容判断与复刻者",
+        summary: "开始能判断内容好坏，并把爆款拆成下一轮可以复用的变量。",
+        focus: "把感觉翻译成标准，再把标准带进复刻实验。",
+        signal: "能说出内容好坏，也能拆出爆款变量，但还需要把判断稳定沉淀成团队和 AI 都能复用的流程。",
+        standard: "能把判断写成验收标准，并围绕一个变量连续做 3-5 次实验，复盘出下一轮方向。",
+        practice: "把“我觉得不行”改写成 3 条可检查标准，再选 1 个变量改下一篇。"
       },
       {
         id: 3,
         label: "L3",
-        title: "爆款复刻者",
-        summary: "能从爆款里拆出可迁移变量，并带出下一批实验。",
-        focus: "从单篇成功进入批量复刻。"
+        title: "项目负责人",
+        summary: "能组织内容、直播、投放和复盘，开始对业务结果负责。",
+        focus: "把人、流程、节奏串起来。",
+        signal: "你不再只交付内容，而要让选题、拍摄、直播、投放、复盘一起动起来。",
+        standard: "能把目标拆成节奏、负责人、交付物和复盘机制，并推动团队按节奏迭代。",
+        practice: "把一个项目拆成 7 天节奏表，明确每天的产出和验收。"
       },
       {
         id: 4,
         label: "L4",
-        title: "项目负责人",
-        summary: "能组织内容、直播、投放和复盘，开始对业务结果负责。",
-        focus: "把人、流程、节奏串起来。"
+        title: "业务负责人",
+        summary: "能围绕新客、复购、利润和长期资产设计内容电商系统。",
+        focus: "从内容结果升级到经营结果。",
+        signal: "你开始关心内容之外的货盘、利润、老客承接和长期资产。",
+        standard: "能用内容、直播和私域承接共同解释业务结果，而不是只看单条数据。",
+        practice: "把一次活动拆成新客、转化、复购、利润和资产五张复盘卡。"
       },
       {
         id: 5,
         label: "L5",
-        title: "业务负责人",
-        summary: "能围绕新客、复购、利润和长期资产设计内容电商系统。",
-        focus: "从内容结果升级到经营结果。"
-      },
-      {
-        id: 6,
-        label: "L6",
         title: "AI 原生组织负责人",
         summary: "能管理人和多个 AI Agent，让团队持续生成高质量判断和执行。",
-        focus: "设计组织能力，而不只是亲自下场。"
+        focus: "设计组织能力，而不只是亲自下场。",
+        signal: "你管理的不只是人，还包括 AI Agent、流程、知识库和验收标准。",
+        standard: "能让人和 AI 在同一套输入、输出、质检标准下协同产出。",
+        practice: "为一个重复岗位写出 AI Agent 的角色、输入、输出、质检和失败样例。"
       }
     ];
 
@@ -1083,22 +1242,34 @@
         {
           tag: "小红书",
           title: "拆一篇已验证爆款",
+          stage: "适合 L1-L2",
           scene: "从你们最近表现最好的一篇笔记里，拆出标题、封面、评论区、商品点击四个变量。",
+          action: "不要先改全篇，只选一个变量复用到下一篇。",
+          deliver: "一张爆款归因卡 + 一条下一篇改稿方向。",
           accept: "产出一张爆款归因卡，并写出下一篇只复用一个变量的改稿方向。",
+          review: "这篇内容到底赢在用户情绪、信息密度、货品理由，还是评论区承接？",
           inner: "不要急着证明自己会写，先训练自己能说清楚为什么它能跑。"
         },
         {
           tag: "评论区",
           title: "做 20 条评论纠偏",
+          stage: "适合 L2-L3",
           scene: "把用户评论分成想买、误解、犹豫、反感四类，再反推正文哪里没讲清楚。",
+          action: "每类选 5 条，写出用户真正没被回答的问题。",
+          deliver: "4 类评论模板 + 3 个正文修正点。",
           accept: "形成 4 类评论模板和 3 个正文修正点。",
+          review: "用户是在不懂产品，还是不相信你说的使用场景？",
           inner: "被用户误解时先别防御，评论区常常是在替你指出表达漏洞。"
         },
         {
           tag: "AI协同",
           title: "把 brief 写给 AI 和新人",
+          stage: "适合 L2-L5",
           scene: "把今天的内容需求写成一版 AI 能生成、新人能执行的 brief。",
+          action: "先写清楚目标人群、核心情绪、不可写内容和验收标准，再让 AI 出稿。",
+          deliver: "一份 AI 和新人都能执行的内容 brief。",
           accept: "brief 里必须有目标人群、核心情绪、不可写内容、验收标准。",
+          review: "如果输出不准，是 AI 不行，还是你没有给出明确判断标准？",
           inner: "如果 AI 输出不准，先检查你是否真的知道自己要什么。"
         }
       ],
@@ -1106,22 +1277,34 @@
         {
           tag: "直播",
           title: "30 分钟话术调试",
+          stage: "适合 L2-L3",
           scene: "让主播开播 30 分钟，录屏后只改一个变量：语速、塑品高度、赠品节奏或信任背书。",
+          action: "只改一个变量，并记录改前改后的停留、点击、评论变化。",
+          deliver: "一张话术变量调试表。",
           accept: "主播能稳定讲完 2 分钟核心段落，停留、点击、评论至少有一个指标改善。",
+          review: "这次变化是人讲得更稳，还是用户信任成本被降低了？",
           inner: "这张卡训练的是把人调出来，不是把人骂明白。"
         },
         {
           tag: "高客单",
           title: "把快讲改成慢讲",
+          stage: "适合 L2-L4",
           scene: "选择一个客单较高的品，把原来 3 分钟话术拉成 12-20 分钟长讲解结构。",
+          action: "按痛点、信任、使用、对比、成交理由五段重排话术。",
+          deliver: "一版高客单慢讲脚本。",
           accept: "讲清楚产品为什么贵、适合谁、怎么用、为什么现在买。",
+          review: "用户不买是因为不需要，还是因为还没有足够相信？",
           inner: "高客单用户不是不想买，而是信任成本还没有被你付够。"
         },
         {
           tag: "投放复盘",
           title: "分开看首日和长周期 ROI",
+          stage: "适合 L3-L4",
           scene: "把一场直播或专场拆成首日点击下单、长周期回流、新客占比三张表。",
+          action: "分别判断流量质量、话术转化、货盘吸引和老客承接。",
+          deliver: "一页直播 ROI 复盘结论。",
           accept: "明确下一场到底该优化流量、话术、货盘还是老客承接。",
+          review: "你是在被首日数据吓住，还是已经看见了长期模型的问题？",
           inner: "不要把短期焦虑误判成长期模型失败。"
         }
       ],
@@ -1129,22 +1312,34 @@
         {
           tag: "管理",
           title: "给一个人设计一张成长任务卡",
+          stage: "适合 L3-L5",
           scene: "选择团队里一个人，把他的日常工作改写成任务、验收、复盘和内在卡点。",
+          action: "把一句“你去做好”改成任务、交付物、验收标准、复盘问题。",
+          deliver: "一张成员成长任务卡。",
           accept: "这张卡明天就能执行，且不需要你全程盯着。",
+          review: "这张卡是在帮他长能力，还是只是在帮你少操心？",
           inner: "从自己做完到别人做成，中间最难放下的是控制感。"
         },
         {
           tag: "MLC",
           title: "做一次安全感诊断",
+          stage: "适合 L3-L5",
           scene: "看一个人没升级，是缺意愿、能力、安全感，还是学习敏捷度。",
+          action: "先判断卡点类型，再给一个降低威胁感的动作。",
+          deliver: "一条成员卡点判断 + 一个低威胁训练动作。",
           accept: "给出一个降低威胁感的动作，而不是只加任务。",
+          review: "他是真的不会，还是害怕一做就暴露自己不行？",
           inner: "很多人的能力卡住，不是懒，而是怕暴露自己不行。"
         },
         {
           tag: "AI Agent",
           title: "定义一个 AI Agent 的验收标准",
+          stage: "适合 L4-L5",
           scene: "把一个重复工作交给 AI，但先写清楚它输出什么算及格。",
+          action: "先定义角色、输入、输出格式、质检标准和失败样例。",
+          deliver: "一个可交付给 AI Agent 的任务说明。",
           accept: "完成角色、输入、输出格式、质检标准、失败样例五件事。",
+          review: "这个 Agent 是在替你执行，还是在暴露你的标准还没写清楚？",
           inner: "管理 AI 的本质，仍然是管理你的判断标准。"
         }
       ]
@@ -1181,7 +1376,15 @@
       let score = role + Math.min(load, 2) + Math.floor(days / 3);
       if (stress === "experiment") score += 1;
       if (blocker === "people" && load >= 2) score += 1;
-      const stageId = Math.min(6, Math.max(1, score));
+      const stageId = score <= 1
+        ? 1
+        : score <= 3
+          ? 2
+          : score === 4
+            ? 3
+            : score === 5
+              ? 4
+              : 5;
 
       const judgement = Math.min(100, 25 + role * 14 + days * 4);
       const system = Math.min(100, 18 + days * 8 + (stress === "experiment" ? 18 : 0));
@@ -1230,12 +1433,14 @@
       const state = calculateState();
       const stage = stages.find(item => item.id === state.stageId);
       roleLabel.textContent = `${stage.label} ${stage.title}`;
-      roleTitle.textContent = stage.id <= 2
-        ? "你已经开始从执行进入判断，但还需要把经验变成标准"
-        : stage.id <= 4
-          ? "你正在从个人能力升级为项目系统，需要把复刻流程跑顺"
-          : "你已经进入经营和组织题，需要让人、内容和 AI 协同产出结果";
-      roleDescription.textContent = stage.focus + " " + stage.summary;
+      roleTitle.textContent = stage.id === 1
+        ? "你正在打稳定交付的底盘，先把动作和素材拆清楚"
+        : stage.id === 2
+          ? "你正在从内容判断进入爆款复刻，需要把经验变成标准"
+          : stage.id === 3
+            ? "你正在从个人能力升级为项目系统，需要把复刻流程跑顺"
+            : "你已经进入经营和组织题，需要让人、内容和 AI 协同产出结果";
+      roleDescription.textContent = `${stage.focus} 下一层标准：${stage.standard}`;
       activeTaskTrack = state.track;
       renderStageLane(state.stageId);
       renderInsights(state);
@@ -1255,7 +1460,11 @@
           </div>
           <h3>${stage.title}</h3>
           <p>${stage.summary}</p>
-          <p>${stage.focus}</p>
+          <div class="stage-requirements">
+            <div class="requirement-row"><strong>当前样子</strong><span>${stage.signal}</span></div>
+            <div class="requirement-row"><strong>升级标准</strong><span>${stage.standard}</span></div>
+            <div class="requirement-row"><strong>明日训练</strong><span>${stage.practice}</span></div>
+          </div>
         </article>
       `).join("");
     }
@@ -1264,12 +1473,16 @@
       taskGrid.innerHTML = tasks[track].map(task => `
         <article class="task-card">
           <div>
-            <div class="task-kicker"><span>${task.tag}</span><span class="badge">明日可做</span></div>
+            <div class="task-kicker"><span>${task.tag}</span><span class="badge">本月可做</span></div>
             <h3>${task.title}</h3>
             <p>${task.scene}</p>
           </div>
           <div class="task-meta">
+            <div class="meta-row"><strong>阶段</strong><span>${task.stage}</span></div>
+            <div class="meta-row"><strong>今天动作</strong><span>${task.action}</span></div>
+            <div class="meta-row"><strong>交付物</strong><span>${task.deliver}</span></div>
             <div class="meta-row"><strong>验收</strong><span>${task.accept}</span></div>
+            <div class="meta-row"><strong>复盘问题</strong><span>${task.review}</span></div>
             <div class="meta-row"><strong>内在提醒</strong><span>${task.inner}</span></div>
           </div>
         </article>
@@ -1408,11 +1621,11 @@
     });
 
     window.addEventListener("scroll", () => {
-      const sections = ["diagnose", "map", "tasks"];
+      const sections = ["tasks", "selfcheck", "map"];
       const current = sections.findLast(id => {
         const rect = document.getElementById(id).getBoundingClientRect();
         return rect.top <= 120;
-      }) || "diagnose";
+      }) || "tasks";
       navLinks.forEach(link => {
         link.classList.toggle("is-active", link.getAttribute("href") === `#${current}`);
       });
